@@ -12,7 +12,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/stretchrcom/testify/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func caller() string {
@@ -60,14 +60,14 @@ func assertMapEqual(t *testing.T, seq1, seq2 interface{}) {
 	}
 
 	for _, key1 := range keys1 {
-		if a, b := v2.MapIndex(key1), v1.MapIndex(key1); a != b {
-			t.Fatal("%v Different key/value in Map: %v != %v", caller(), a, b)
+		if a, b := v2.MapIndex(key1), v1.MapIndex(key1); a.Interface() != b.Interface() {
+			t.Fatalf("%v Different key/value in Map: %v != %v", caller(), a.Interface(), b.Interface())
 		}
 	}
 
 	for _, key2 := range keys2 {
-		if a, b := v1.MapIndex(key2), v2.MapIndex(key2); a != b {
-			t.Fatal("%v Different key/value in Map: %v != %v", caller(), a, b)
+		if a, b := v1.MapIndex(key2), v2.MapIndex(key2); a.Interface() != b.Interface() {
+			t.Fatalf("%v Different key/value in Map: %v != %v", caller(), a.Interface(), b.Interface())
 		}
 	}
 }
@@ -257,7 +257,6 @@ func Test_diffBisectSplit(t *testing.T) {
 		assert.True(t, utf8.ValidString(d.Text))
 	}
 }
-	
 
 func Test_diffLinesToChars(t *testing.T) {
 	dmp := New()

@@ -191,8 +191,10 @@ func (p *Patch) String() string {
 			text.WriteString(" ")
 		}
 
-		text.WriteString(strings.Replace(url.QueryEscape(aDiff.Text), "+", " ", -1))
-		text.WriteString("\n")
+		if aDiff.Text != "" {
+			text.WriteString(aDiff.Text)
+			text.WriteString("\n")
+		}
 	}
 
 	return unescaper.Replace(text.String())
